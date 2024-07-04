@@ -2,16 +2,23 @@ package com.example.telalogincompose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,58 +30,104 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun LoginScreen() {
 
-    var addressField = remember {
-        mutableStateOf("") }
-    var passwordField = remember {
-        mutableStateOf("") }
+    var addressField by remember {
+        mutableStateOf("")
+    }
+    var passwordField by remember {
+        mutableStateOf("")
+    }
 
     Column(
         Modifier
             .fillMaxSize()
-            .background(color = Color(0xFFFFFFFF)),
+            .background(color = Color(color = 0xFFFFFFFF)),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)){
+    ) {
 
-        Image(painter = painterResource(id = R.drawable.ic_login_image),
-            contentDescription = "login image")
+        Image(
+            modifier = Modifier.size(300.dp),
+            painter = painterResource(id = R.drawable.ic_login_image),
+            contentDescription = "login image"
+        )
 
-        Text(text = "Welcome Back",
+        Text(
+            text = "Bem vindo",
             fontSize = 32.sp,
-            fontWeight = FontWeight.Bold)
-
-        Text(text = "Login to your account",
-            fontSize = 16.sp)
-
-        TextField(
-            value = addressField.value,
-            onValueChange = { novoValor ->
-                addressField.value = novoValor
-        },
-            label =  {
-                Text(text = "Email address")
-            }
+            fontWeight = FontWeight.Bold
         )
-        TextField(
-            value = passwordField.value,
-            onValueChange = { novoValor ->
-                passwordField.value = novoValor
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(
+            text = "Faça login na sua conta",
+            fontSize = 16.sp
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        OutlinedTextField(
+            value = addressField,
+            onValueChange = {
+                addressField = it
             },
-            label =  {
-                Text(text = "Password")
+            label = {
+                Text(text = "Email")
             }
         )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        OutlinedTextField(
+            value = passwordField,
+            onValueChange = {
+                passwordField = it
+            },
+            label = {
+                Text(text = "Senha")
+            }
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
         Button(onClick = { /*TODO*/ }) {
-            Text(text = "Login")
+            Text(text = "Logar")
         }
-        Text(text = "Forgot Password?",
-            fontSize = 16.sp)
-        
-        Text(text = "Or sign in with",
-            fontSize = 16.sp)
-        Row {
-            Image(painter = painterResource(id = R.drawable.ic_facebook), contentDescription = "Facebook image")
-            Image(painter = painterResource(id = R.drawable.ic_google), contentDescription = "Google image")
-            Image(painter = painterResource(id = R.drawable.ic_twiter), contentDescription = "Twitter image")
+        Spacer(modifier = Modifier.height(32.dp))
+
+        TextButton(onClick = { /*TODO*/ }) {
+            Text(
+                text = "Esqueçeu a senha?",
+                fontSize = 16.sp
+            )
+        }
+        Text(
+            text = "Ou entre com",
+            fontSize = 16.sp
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier
+                .padding(20.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Image(painter = painterResource(id = R.drawable.facebook),
+                contentDescription = "Facebook image",
+                modifier = Modifier
+                    .size(60.dp)
+                    .clickable { })
+            Image(painter = painterResource(id = R.drawable.google),
+                contentDescription = "Google image",
+                modifier = Modifier
+                    .size(60.dp)
+                    .clickable { })
+            Image(painter = painterResource(id = R.drawable.twitter),
+                contentDescription = "Twitter image",
+                modifier = Modifier
+                    .size(60.dp)
+                    .clickable { })
+
         }
     }
 }
